@@ -1,0 +1,4 @@
+package com.example.cukraszda;
+import org.springframework.data.repository.CrudRepository;
+public interface TartalomRepo extends CrudRepository<Tartalom, Integer>{
+}

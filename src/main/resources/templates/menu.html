@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid"
+         xmlns:th="http://www.thymeleaf.org"
+         xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">>>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link active" aria-current="page" th:href="@{/login}">Belépés</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link active" aria-current="page" th:href="@{/registration}">Regisztráció</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link active" aria-current="page" th:href="@{/home}">Főoldal</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link active" aria-current="page" th:href="@{/home}">Főoldal</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link active" aria-current="page" th:href="@{/query}">Termékek</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link active" aria-current="page" th:href="@{/messages}">Üzenet</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link active" aria-current="page" th:href="@{/messages2}">Üzenet2</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Kilépés</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link active" aria-current="page" th:href="@{/admin/home}">Admin</a>
+            </li>
+        </ul>
+        <div>
+            <span class="text-white" sec:authorize="isAuthenticated()">
+                Felhasználó: <span sec:authentication="principal.username">User</span>
+            </span>
+        </div>
+    </div>
+</nav>
