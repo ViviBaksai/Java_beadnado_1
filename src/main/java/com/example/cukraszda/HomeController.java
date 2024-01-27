@@ -1,8 +1,10 @@
 package com.example.cukraszda;
 
 import jakarta.validation.Valid;
+import jdk.jfr.Name;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.jar.Attributes;
 
 @Controller
 public class HomeController {
@@ -38,7 +42,7 @@ public class HomeController {
 
     @Autowired
     private UserRepo userRepo;
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public String Regisztráció(@ModelAttribute User user, Model model) {
         for(User felhasznalo2: userRepo.findAll())
             if(felhasznalo2.getEmail().equals(user.getEmail())){
@@ -47,7 +51,8 @@ public class HomeController {
             }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_Vendeg");
+        user.setRole("ROLE_USER");
+        //user.setName(String.valueOf(username));
         userRepo.save(user);
         model.addAttribute("id", user.getId());
         return "reg_sucess";
